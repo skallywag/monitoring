@@ -14,8 +14,9 @@ const rollbar = new Rollbar({
 let students = []
 
 const app = express()
+app.use(express.json())
 
-app.use(rollbar.errorHandler())
+
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'))
@@ -37,4 +38,7 @@ app.post('/api/student', (req, res) => {
 const port = process.env.PORT || 4545
 // console.log(port);
 
+app.use(rollbar.errorHandler())
+
 app.listen(port, () => console.log(`warped to ${port}`))
+
