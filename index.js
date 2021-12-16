@@ -11,13 +11,28 @@ const rollbar = new Rollbar({
 
 // record a generic message and send it to Rollbar
 
+let students = []
 
 const app = express()
+
+app.use(rollbar.errorHandler())
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'))
     rollbar.info('html file served successfully.')
 })
+
+app.post('/api/student', (req, res) => {
+  let {name} = req.body
+  name = name.trim()
+
+  students.push(name)
+
+  rollbar.log('student added successfully', {author: 'Sam', type: 'manual'})
+
+  res.status(200).send(students)
+})
+
 
 const port = process.env.PORT || 4545
 // console.log(port);
