@@ -10,4 +10,4 @@ app.get('/', (req, res) => {
 const port = process.env.PORT || 4545
 // console.log(port);
 
-app.listen(4545, () => console.log(`warped to ${port}`))
+app.listen(port, () => console.log(`warped to ${port}`))
